@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,11 +14,37 @@ import {
 import StarRating from "react-native-star-rating";
 import axios from "axios";
 import { db } from "./firebase";
+import firebase from "firebase";
 
-export default function Favourites() {
+export default function Favourites({ navigation: goBack }) {
+  const [moviesList, setMoviesList] = useState([]);
+
+  const getMovies = async () => {
+    const response = db.collection("Movies");
+    const data = await response.get();
+    data.docs.forEach((item) => {
+      setMoviesList([...moviesList, item.data().title]);
+    });
+  };
+
+  //   //Call when component is rendered
+  useEffect(() => {
+    getMovies();
+    moviesList.map((e) => console.log(e));
+  });
+  //   useEffect(() => {
+  //     const unsubscribe = navigation.addListener("focus", () => {
+  //       getMovies();
+  //     });
+  //     return unsubscribe;
+  //   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Favourites</Text>
+      {moviesList.map((movie, id) => {
+        <Text key={id}>{movie.title}</Text>;
+      })}
     </View>
   );
 }
