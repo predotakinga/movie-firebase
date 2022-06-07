@@ -14,10 +14,16 @@ import {
 import StarRating from "react-native-star-rating";
 import axios from "axios";
 import { db } from "./firebase";
+import { AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
   const apiurl = "http://www.omdbapi.com/?i=tt3896198&apikey=a77940b7";
   const [title, setTitle] = useState("");
+
+  const navigation = useNavigation();
 
   const showToast = () => {
     ToastAndroid.show("Data is incorrect!", ToastAndroid.SHORT);
@@ -60,9 +66,19 @@ export default function Home() {
     setTitle("");
   };
 
+  const toFavourite = () => {
+    navigation.navigate("Favourites");
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Kingusia Movie</Text>
+      <TouchableOpacity
+        style={{ marginLeft: "auto", marginRight: 0 }}
+        onPress={toFavourite}
+      >
+        <AntDesign name="hearto" size={32} color="white" />
+      </TouchableOpacity>
+      <Text style={styles.title}>Movies</Text>
       <TextInput
         placeholder="Enter text..."
         style={styles.search}

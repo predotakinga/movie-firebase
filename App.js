@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import Home from "./Home";
 import SignIn from "./SignIn";
+import Favourites from "./Favourites";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -31,6 +32,11 @@ export default function App() {
           options={{ headerShown: false }}
           name="Home"
           component={Home}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Favourites"
+          component={Favourites}
         />
       </Stack.Navigator>
     </NavigationContainer>
