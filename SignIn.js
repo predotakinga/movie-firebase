@@ -18,14 +18,14 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.navigate("Home");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const handleSignUp = () => {
     auth

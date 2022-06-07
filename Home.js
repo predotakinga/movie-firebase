@@ -134,17 +134,24 @@ export default function Home() {
               marginBottom: 20,
             }}
           />
-          <Button title="Add to favourite" onPress={AddToFav} />
+          <TouchableOpacity style={styles.modalButton} onPress={AddToFav}>
+            <Text style={{ color: "white", fontSize: 20 }}>
+              Add to favourite
+            </Text>
+          </TouchableOpacity>
           <Text style={styles.plot}>Plot: {state.selected.Plot}</Text>
           <Text style={styles.actors}>Actors: {state.selected.Actors}</Text>
-          <Button
+          <TouchableOpacity
+            style={styles.modalButton2}
             title="Close"
             onPress={() =>
               setState((prevState) => {
                 return { ...prevState, selected: {} };
               })
             }
-          />
+          >
+            <Text style={{ color: "white", fontSize: 20 }}>Go back</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>
@@ -157,8 +164,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#223343",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 70,
+    paddingTop: 30,
     paddingHorizontal: 20,
+  },
+  modalButton: {
+    backgroundColor: "#223343",
+    borderWidth: 2,
+    borderColor: "white",
+    width: 200,
+    height: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalButton2: {
+    backgroundColor: "#223343",
+    borderWidth: 2,
+    borderColor: "white",
+    width: 150,
+    height: 50,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     color: "#fff",
@@ -216,7 +243,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     textAlign: "center",
     marginTop: 20,
-    marginBottom: 50,
+    marginBottom: 20,
   },
   modalTitle: {
     color: "#fff",
