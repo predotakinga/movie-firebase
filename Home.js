@@ -13,9 +13,11 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import axios from "axios";
+import { db } from "./firebase";
 
 export default function Home() {
   const apiurl = "http://www.omdbapi.com/?i=tt3896198&apikey=a77940b7";
+  const [title, setTitle] = useState("");
 
   const showToast = () => {
     ToastAndroid.show("Data is incorrect!", ToastAndroid.SHORT);
@@ -43,11 +45,19 @@ export default function Home() {
   const openPopup = (title) => {
     axios(apiurl + "&t=" + title).then(({ data }) => {
       let result = data;
-      console.log(result);
+      setTitle(result.Title);
       setState((prevState) => {
         return { ...prevState, selected: result };
       });
     });
+  };
+
+  const AddToFav = (e) => {
+    e.preventDefault();
+    db.collection("Movies").add({
+      title: title,
+    });
+    setTitle("");
   };
 
   return (
@@ -101,8 +111,14 @@ export default function Home() {
           <Text style={styles.year}>{state.selected.Year}</Text>
           <Image
             source={{ uri: state.selected.Poster }}
-            style={{ width: "65%", height: 300, marginTop: 10 }}
+            style={{
+              width: "65%",
+              height: 300,
+              marginTop: 10,
+              marginBottom: 20,
+            }}
           />
+          <Button title="Add to favourite" onPress={AddToFav} />
           <Text style={styles.plot}>Plot: {state.selected.Plot}</Text>
           <Text style={styles.actors}>Actors: {state.selected.Actors}</Text>
           <Button
